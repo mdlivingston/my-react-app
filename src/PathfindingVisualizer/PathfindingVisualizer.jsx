@@ -1,26 +1,23 @@
 import React, { Component } from 'react';
 import Node from './Node/Node';
 import { dijkstra, getNodesInShortestPathOrder } from '../Algorithms/dijkstra';
-import { Box, Button } from '@material-ui/core';
+import { Box, Button, Card, CardContent } from '@material-ui/core';
 import './PathfindingVisualizer.css';
 
-const START_NODE_ROW = 10;
-const START_NODE_COL = 15;
-const FINISH_NODE_ROW = 10;
-const FINISH_NODE_COL = 35;
+const START_NODE_ROW = 5;
+const START_NODE_COL = 10;
+const FINISH_NODE_ROW = 15;
+const FINISH_NODE_COL = 40;
 
 export default class PathfindingVisualizer extends Component {
-    constructor() {
-        super();
-        this.state = {
-            grid: [],
-            mouseIsPressed: false,
-        };
-    }
+    state = {
+        grid: [],
+        mouseIsPressed: false,
+        currentVisitedNodesInOrder: undefined
+    };
 
     componentDidMount() {
-        const grid = getInitialGrid();
-        this.setState({ grid });
+        this.setState({ grid: getInitialGrid() });
     }
 
     handleMouseDown(row, col) {
@@ -56,12 +53,36 @@ export default class PathfindingVisualizer extends Component {
 
     animateShortestPath(nodesInShortestPathOrder) {
         for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
+            const node = nodesInShortestPathOrder[i];
             setTimeout(() => {
-                const node = nodesInShortestPathOrder[i];
                 document.getElementById(`node-${node.row}-${node.col}`).className =
                     'node node-shortest-path';
+
+                if (node.row === START_NODE_ROW && node.col === START_NODE_COL)
+                    document.getElementById(`node-${node.row}-${node.col}`).className =
+                        'node node-start';
+                if (node.row === FINISH_NODE_ROW && node.col === FINISH_NODE_COL)
+                    document.getElementById(`node-${node.row}-${node.col}`).className =
+                        'node node-finish';
             }, 50 * i);
         }
+    }
+
+    resetClassNames() {
+        if (this.state.currentVisitedNodesInOrder) {
+            for (const node of this.state.currentVisitedNodesInOrder) {
+                if (node.row === START_NODE_ROW && node.col === START_NODE_COL)
+                    document.getElementById(`node-${node.row}-${node.col}`).className =
+                        'node node-start';
+                else if (node.row === FINISH_NODE_ROW && node.col === FINISH_NODE_COL)
+                    document.getElementById(`node-${node.row}-${node.col}`).className =
+                        'node node-finish';
+                else
+                    document.getElementById(`node-${node.row}-${node.col}`).className =
+                        'node';
+            }
+        }
+        this.setState({ grid: getInitialGrid() });
     }
 
     visualizeDijkstra() {
@@ -71,44 +92,48 @@ export default class PathfindingVisualizer extends Component {
         const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
         const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
         this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
+        this.setState({ currentVisitedNodesInOrder: visitedNodesInOrder });
     }
 
     render() {
-        const { grid, mouseIsPressed } = this.state;
-
         return (
             <React.Fragment>
-                <Box style={{ textAlign: 'center' }}>
-                    <Box m={5}>
-                        <Button variant="contained" color="primary" onClick={() => this.visualizeDijkstra()}>Trigger Dijstra's Algorithm</Button>
-                    </Box>
-                    <Box m={5}>
-                        {grid.map((row, rowIdx) => {
-                            return (
-                                <div key={rowIdx}>
-                                    {row.map((node, nodeIdx) => {
-                                        const { row, col, isFinish, isStart, isWall } = node;
-                                        return (
-                                            <Node
-                                                key={nodeIdx}
-                                                col={col}
-                                                isFinish={isFinish}
-                                                isStart={isStart}
-                                                isWall={isWall}
-                                                mouseIsPressed={mouseIsPressed}
-                                                onMouseDown={(row, col) => this.handleMouseDown(row, col)}
-                                                onMouseEnter={(row, col) =>
-                                                    this.handleMouseEnter(row, col)
-                                                }
-                                                onMouseUp={() => this.handleMouseUp()}
-                                                row={row}></Node>
-                                        );
-                                    })}
-                                </div>
-                            );
-                        })}
-                    </Box>
-                </Box>
+                <Card elevation={10} style={{ minWidth: 1283 }}>
+                    <CardContent>
+                        <Box style={{ textAlign: 'center' }}>
+                            <Box m={5}>
+                                <Button style={{ marginRight: 8 }} variant="contained" color="primary" onClick={() => this.visualizeDijkstra()}>Trigger Dijstra's Algorithm</Button>
+                                <Button variant="outlined" color="primary" onClick={() => this.resetClassNames()}>Reset</Button>
+                            </Box>
+                            <Box >
+                                {this.state.grid.map((row, rowIdx) => {
+                                    return (
+                                        <div key={rowIdx}>
+                                            {row.map((node, nodeIdx) => {
+                                                const { row, col, isFinish, isStart, isWall } = node;
+                                                return (
+                                                    <Node
+                                                        key={nodeIdx}
+                                                        col={col}
+                                                        isFinish={isFinish}
+                                                        isStart={isStart}
+                                                        isWall={isWall}
+                                                        mouseIsPressed={this.state.mouseIsPressed}
+                                                        onMouseDown={(row, col) => this.handleMouseDown(row, col)}
+                                                        onMouseEnter={(row, col) =>
+                                                            this.handleMouseEnter(row, col)
+                                                        }
+                                                        onMouseUp={() => this.handleMouseUp()}
+                                                        row={row}></Node>
+                                                );
+                                            })}
+                                        </div>
+                                    );
+                                })}
+                            </Box>
+                        </Box>
+                    </CardContent>
+                </Card>
             </React.Fragment>
         );
     }

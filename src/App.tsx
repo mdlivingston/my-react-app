@@ -4,13 +4,16 @@ import './App.css';
 import Counter from './Counter/Counter';
 import Pokemon from './Pokemon/Pokemon';
 import PathfindingVisualizer from './PathfindingVisualizer/PathfindingVisualizer';
+import { Box } from '@material-ui/core';
 
 function App() {
   return (
     <React.Fragment>
       <Counter name={'test'} />
       <Pokemon name={'test2'} />
-      <PathfindingVisualizer />
+      <Box m={1}>
+        <PathfindingVisualizer />
+      </Box>
     </React.Fragment>
     // <div className="App">
     //   <header className="App-header">
