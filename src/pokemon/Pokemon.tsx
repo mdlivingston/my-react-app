@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { fetchPokemon } from '../api/Api';
+import { fetchPokemon } from '../Api/Api';
 import { Box, TextField } from '@material-ui/core';
 
 export interface PokemonProps {

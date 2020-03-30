@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Counter from './counter/Counter';
-import Pokemon from './pokemon/Pokemon';
+import Counter from './Counter/Counter';
+import Pokemon from './Pokemon/Pokemon';
+import PathfindingVisualizer from './PathfindingVisualizer/PathfindingVisualizer';
 
 function App() {
   return (
     <React.Fragment>
       <Counter name={'test'} />
       <Pokemon name={'test2'} />
+      <PathfindingVisualizer />
     </React.Fragment>
     // <div className="App">
     //   <header className="App-header">
