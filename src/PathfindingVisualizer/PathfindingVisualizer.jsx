@@ -157,7 +157,7 @@ export default class PathfindingVisualizer extends Component {
         return (
             <React.Fragment>
                 <Box className="box-center" m={5} style={{ paddingTop: 20 }}>
-                    <Button style={{ marginRight: 8 }} variant="contained" color="primary" onClick={() => this.visualizeDijkstra()}>Visualize Dijstra's Algorithm</Button>
+                    <Button style={{ marginRight: 8 }} variant="contained" color="primary" onClick={() => this.visualizeDijkstra()}>Visualize Dijkstra's Algorithm</Button>
                     <Button variant="outlined" color="primary" onClick={() => this.resetClassNames()}>Reset</Button>
                 </Box>
 
