@@ -1,9 +1,9 @@
 
 const wait = (ms: number) => new Promise(res => setTimeout(res, ms))
 
-const authHeaders = {
-    //Authorization: `Basic ${Base64.encode(`${username}:${password}`)}`
-}
+//const authHeaders = {
+//Authorization: `Basic ${Base64.encode(`${username}:${password}`)}`
+//}
 
 export const withRetry = (retryCount: number, delay: number, fn: (...args: any[]) => Promise<any>) => async (...args: any[]) => {
     let tryCount = 0

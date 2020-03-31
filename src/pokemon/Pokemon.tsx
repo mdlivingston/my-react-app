@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { fetchPokemon } from '../Api/Api';
 import { Box, TextField, Card, CardContent, Typography } from '@material-ui/core';
-import classes from '*.module.css';
 
 export interface PokemonProps {
     name: string;
