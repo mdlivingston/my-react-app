@@ -1,36 +1,48 @@
 import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Counter from './Counter/Counter';
 import Pokemon from './Pokemon/Pokemon';
 import PathfindingVisualizer from './PathfindingVisualizer/PathfindingVisualizer';
-import { Box } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom";
+
 
 function App() {
+
+
   return (
-    <React.Fragment>
-      <Counter name={'test'} />
-      <Pokemon name={'test2'} />
-      <Box m={1}>
-        <PathfindingVisualizer />
+    <Router>
+      <Box style={{ display: 'flex' }} m={2}>
+        <img className={'App-logo'} src={logo} alt="React"></img>
+        <div style={{ fontSize: 42, marginRight: 22 }}>Max's React App</div>
+        <Button style={{ marginRight: 8 }} variant="contained" color="primary" component={Link} to="/pokemon">
+          Pokemon API
+        </Button>
+        <Button variant="contained" color="secondary" component={Link} to="/dijkstra">
+          Dijkstra Visualizer
+        </Button>
       </Box>
-    </React.Fragment>
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.tsx</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
+
+      {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+      <Switch>
+        <Route path="/pokemon">
+          <Pokemon name={'test2'} />
+        </Route>
+        <Route path="/dijkstra">
+          <PathfindingVisualizer />
+        </Route>
+        <Route path="/">
+          <Pokemon name={'test2'} />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

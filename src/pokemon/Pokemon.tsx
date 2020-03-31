@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { fetchPokemon } from '../Api/Api';
-import { Box, TextField } from '@material-ui/core';
+import { Box, TextField, Card, CardContent, Typography } from '@material-ui/core';
+import classes from '*.module.css';
 
 export interface PokemonProps {
     name: string;
@@ -20,13 +21,23 @@ class Pokemon extends React.Component<PokemonProps, PokemonState> {
                 console.log(pokemonData);
                 this.setState({
                     pokemon:
-                        <Box>
-                            <img height={175} src={pokemonData.sprites.front_default} alt="Pokemon"></img>
-                            <h1>Name: {pokemonData.name}</h1>
-                            <h1>Height: {pokemonData.height}</h1>
-                            <h1>Abilities: {pokemonData.abilities.map((a: any) => a.ability.name).toString()}</h1>
-                            <h1>Types: {pokemonData.types.map((a: any) => a.type.name).toString()}</h1>
-                        </Box>
+                        <Card elevation={10} style={{ width: 275 }}>
+                            <Box textAlign={'center'}>
+                                <img src={pokemonData.sprites.front_default} alt="Pokemon"></img>
+                            </Box>
+                            <CardContent>
+                                <Typography variant="h5" component="h2">
+                                    {pokemonData.name}
+                                </Typography>
+                                <Typography variant="body2" component="p">
+                                    Height: {pokemonData.height}
+                                    <br />
+                                    Abilities: {pokemonData.abilities.map((a: any) => a.ability.name).toString()}
+                                    <br />
+                                    Types: {pokemonData.types.map((a: any) => a.type.name).toString()}
+                                </Typography>
+                            </CardContent>
+                        </Card>
                 })
             })
             .catch((error: any) => {
@@ -42,8 +53,10 @@ class Pokemon extends React.Component<PokemonProps, PokemonState> {
     render() {
         return (
             <React.Fragment>
-                <Box style={{ textAlign: 'center' }} m={10}>
+                <Box style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} m={10}>
                     <TextField id="outlined-basic" label="Search pokemon..." onKeyDown={this.handleGettingPokemon} variant="outlined" />
+                </Box>
+                <Box style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     {this.state.pokemon}
                 </Box>
             </React.Fragment>
