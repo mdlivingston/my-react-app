@@ -4,9 +4,9 @@ import { dijkstra, getNodesInShortestPathOrder } from '../Algorithms/dijkstra';
 import { Box, Button } from '@material-ui/core';
 import './PathfindingVisualizer.css';
 
-let START_NODE_ROW = 20;
+let START_NODE_ROW = 25;
 let START_NODE_COL = 10;
-let FINISH_NODE_ROW = 20;
+let FINISH_NODE_ROW = 25;
 let FINISH_NODE_COL = 60;
 
 export default class PathfindingVisualizer extends Component {
@@ -156,8 +156,21 @@ export default class PathfindingVisualizer extends Component {
     render() {
         return (
             <React.Fragment>
-                <Box style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: 20 }}>
-                    <table>
+                <Box className="box-center" m={5} style={{ paddingTop: 20 }}>
+                    <Button style={{ marginRight: 8 }} variant="contained" color="primary" onClick={() => this.visualizeDijkstra()}>Visualize Dijstra's Algorithm</Button>
+                    <Button variant="outlined" color="primary" onClick={() => this.resetClassNames()}>Reset</Button>
+                </Box>
+
+                <Box className="box-center">
+                    <span className="start-node"></span> Start Node &nbsp;
+                    <span className="finish-node"></span> Finish Node
+                </Box>
+                <Box className="box-center" style={{ paddingTop: 20 }}>
+                    *Click and drag to move nodes or generate walls.*
+                </Box>
+
+                <Box className="box-center" style={{ paddingTop: 20 }}>
+                    <table style={{ borderCollapse: 'collapse' }}>
                         <tbody>
                             {this.state.grid.map((row, rowIdx) => {
                                 return (
@@ -187,11 +200,6 @@ export default class PathfindingVisualizer extends Component {
                         </tbody>
                     </table>
                 </Box>
-                <Box m={5} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: 20 }}>
-                    <Button style={{ marginRight: 8 }} variant="contained" color="primary" onClick={() => this.visualizeDijkstra()}>Visualize Dijstra's Algorithm</Button>
-                    <Button variant="outlined" color="primary" onClick={() => this.resetClassNames()}>Reset</Button>
-                </Box>
-
             </React.Fragment>
         );
     }
@@ -199,7 +207,7 @@ export default class PathfindingVisualizer extends Component {
 
 const getInitialGrid = () => {
     const grid = [];
-    for (let row = 0; row < 40; row++) {
+    for (let row = 0; row < 50; row++) {
         const currentRow = [];
         for (let col = 0; col < 70; col++) {
             currentRow.push(createNode(col, row));
