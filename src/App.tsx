@@ -17,13 +17,13 @@ function App() {
 
   return (
     <Router>
-      <Box style={{ display: 'flex' }} m={2}>
+      <Box className="App-header">
         <img className={'App-logo'} src={logo} alt="React"></img>
-        <div style={{ fontSize: 42, marginRight: 22 }}>Max's React App</div>
-        <Button style={{ marginRight: 8 }} variant="contained" color="primary" component={Link} to="/pokemon">
+        <div style={{ fontSize: 32, marginRight: 22 }}>Max's React App</div>
+        <Button style={{ height: 30, marginRight: 8 }} variant="contained" color="primary" component={Link} to="/pokemon">
           Pokemon API
         </Button>
-        <Button variant="contained" color="secondary" component={Link} to="/dijkstra">
+        <Button style={{ height: 30 }} variant="contained" color="secondary" component={Link} to="/dijkstra">
           Dijkstra Visualizer
         </Button>
       </Box>
