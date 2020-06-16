@@ -54,5 +54,5 @@ html, body, .background {
 
 body {
   background: #eee;
-  background: linear-gradient(360deg, rgba(2, 56, 236, 0.3), rgba(0, 0, 200, 0));
+  background: linear-gradient(360deg, rgba(52, 73, 94, 0.5), rgba(0, 0, 200, 0));
 }

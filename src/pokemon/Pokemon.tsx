@@ -1,22 +1,31 @@
+import { Box, Card, CardContent, TextField, Typography } from '@material-ui/core';
 import * as React from 'react';
 import { fetchPokemon } from '../Api/Api';
-import { Box, TextField, Card, CardContent, Typography } from '@material-ui/core';
 
-export interface PokemonProps {
+
+
+export interface PokemonProps
+{
     name: string;
 }
 
-export interface PokemonState {
+export interface PokemonState
+{
     pokemon: any;
 }
+
+
 
 class Pokemon extends React.Component<PokemonProps, PokemonState> {
     state: PokemonState = { pokemon: '' };
 
-    getPokemon(pokemon: string) {
+    getPokemon(pokemon: string)
+    {
+
         this.setState({ pokemon: <h1>Loading...</h1> })
         fetchPokemon(pokemon)
-            .then((pokemonData) => {
+            .then((pokemonData) =>
+            {
                 console.log(pokemonData);
                 this.setState({
                     pokemon:
@@ -35,21 +44,27 @@ class Pokemon extends React.Component<PokemonProps, PokemonState> {
                                     <br />
                                     Types: {pokemonData.types.map((a: any) => a.type.name).toString()}
                                 </Typography>
+
+
                             </CardContent>
                         </Card>
+
                 })
             })
-            .catch((error: any) => {
+            .catch((error: any) =>
+            {
                 this.setState({ pokemon: <h1 style={{ color: 'red' }}>Cannot find pokemon. :(</h1> })
             });
     }
 
-    componentDidMount() {
+    componentDidMount()
+    {
         //this.getPokemon();
         console.log(this.props)
     }
 
-    render() {
+    render()
+    {
         return (
             <React.Fragment>
                 <Box style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} m={10}>
@@ -62,8 +77,10 @@ class Pokemon extends React.Component<PokemonProps, PokemonState> {
         );
     }
 
-    handleGettingPokemon = (event: any) => {
-        if (event.key === 'Enter') {
+    handleGettingPokemon = (event: any) =>
+    {
+        if (event.key === 'Enter')
+        {
             this.getPokemon(event.target.value);
         }
 
