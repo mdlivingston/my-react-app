@@ -33,7 +33,7 @@ function App()
             renders the first one that matches the current URL. */}
       <Switch>
         <Route path="/pokemon">
-          <Pokemon name={'test2'} />
+          <Pokemon />
         </Route>
         <Route path="/dijkstra">
           <PathfindingVisualizer />
@@ -42,7 +42,7 @@ function App()
           <Random name={'test2'} />
         </Route>
         <Route path="/">
-          <Pokemon name={'test2'} />
+          <Pokemon />
         </Route>
       </Switch>
     </Router>
