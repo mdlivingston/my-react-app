@@ -13,8 +13,9 @@ import Signup from "./Vault/auth/Signup";
 import Profile from "./Vault/auth/Profile"
 import Login from './Vault/auth/Login'
 import { AuthProvider } from "./Vault/context/AuthContext";
-import EditorComp from './Editor/Editor';
+import Exams from './Exams/Exams';
 import Dashboard from './Vault/google-drive/Dashboard';
+import Exam from './Exams/Exam';
 
 function App()
 {
@@ -33,8 +34,8 @@ function App()
         <Button style={{ height: 30, marginRight: 8 }} variant="contained" component={Link} to="/random">
           Random
         </Button>
-        <Button style={{ height: 30, marginRight: 8, backgroundColor: 'lightblue' }} variant="contained" component={Link} to="/editor">
-          Editor
+        <Button style={{ height: 30, marginRight: 8, backgroundColor: 'lightblue' }} variant="contained" component={Link} to="/exams">
+          Exams
         </Button>
         <span style={{ flex: 1 }}></span>
         <Button style={{ height: 30, marginRight: 8 }} variant="contained" component={Link} to="/dashboard">
@@ -47,6 +48,10 @@ function App()
       <AuthProvider>
         <Switch>
 
+          <Route exact path="/">
+            <Pokemon />
+          </Route>
+
           <Route path="/pokemon">
             <Pokemon />
           </Route>
@@ -55,25 +60,24 @@ function App()
             <PathfindingVisualizer />
           </Route>
 
-          <Route path="/editor">
-            <EditorComp />
-          </Route>
-
           <Route path="/random">
             <Random name={'test2'} />
           </Route>
 
-          <PrivateRoute exact path="/dashboard" component={Dashboard}></PrivateRoute>
-          <PrivateRoute exact path="/folder/:folderId" component={Dashboard}></PrivateRoute>
+          <Route exact path="/exams">
+            <Exams />
+          </Route>
+          <PrivateRoute path="/exams/:examId" component={Exam}></PrivateRoute>
+
+
+          <PrivateRoute path="/dashboard" component={Dashboard}></PrivateRoute>
+          <PrivateRoute path="/folder/:folderId" component={Dashboard}></PrivateRoute>
           <PrivateRoute path="/user" component={Profile}></PrivateRoute>
           <PrivateRoute path="/update-profile" component={UpdateProfile}></PrivateRoute>
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/forgot-password" component={ForgotPassword} />
 
-          <Route exact path="/">
-            <Pokemon />
-          </Route>
 
         </Switch>
       </AuthProvider>

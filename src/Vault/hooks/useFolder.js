@@ -88,6 +88,7 @@ export function useFolder(folderId = null, folder = null)
 
     useEffect(() =>
     {
+
         return db.folders
             .where("parentId", "==", folderId)
             .where("userId", "==", currentUser.uid)

@@ -2,26 +2,16 @@ import React, { useEffect } from 'react'
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { db } from '../firebase'
-import { Button } from '@material-ui/core';
 import { useAuth } from '../Vault/context/AuthContext';
-
-ClassicEditor.config = {
-    mediaEmbed: {
-        previewsInData: true
-    }
-}
+import { Button } from '@material-ui/core';
 const editorConfiguration = {
     toolbar: {
         items: [
             'heading', '|',
-            'fontfamily', 'fontsize', '|',
-            'alignment', '|',
-            'fontColor', 'fontBackgroundColor', '|',
-            'bold', 'italic', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
+            'bold', 'italic', '|',
             'link', '|',
             'outdent', 'indent', '|',
-            'bulletedList', 'numberedList', 'todoList', '|',
-            'code', 'codeBlock', '|',
+            'bulletedList', 'numberedList', '|',
             'insertTable', '|',
             'undo', 'redo'
         ],
@@ -31,11 +21,11 @@ const editorConfiguration = {
     }
 };
 
-
-
-export default function EditorComp()
+export default function Exam()
 {
     const { currentUser } = useAuth()
+    const [editorState, setEditorState] = React.useState();
+
     useEffect(() =>
     {
         if (!currentUser) return
@@ -51,7 +41,8 @@ export default function EditorComp()
                 setEditorState(data[0].html);
                 console.log(data); // array of cities objects
             });
-    })
+    }, [currentUser])
+
 
 
     function printCode()
@@ -75,10 +66,8 @@ export default function EditorComp()
                 console.error("Error writing document: ", error);
             });
     }
-    const [editorState, setEditorState] = React.useState();
-
     return (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+        <div>
             <Button variant="contained" style={{ backgroundColor: 'lightblue', marginBottom: '20px' }} onClick={printCode}>Save Data</Button>
 
             <div style={{ width: '1000px' }}>
@@ -111,8 +100,5 @@ export default function EditorComp()
 
             { editorState ? <p dangerouslySetInnerHTML={{ __html: editorState }}></p> : ''}
         </div>
-
-    );
-
+    )
 }
-

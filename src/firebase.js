@@ -17,6 +17,7 @@ export const db = {
     folders: firestore.collection('folders'),
     files: firestore.collection("files"),
     editor: firestore.collection('editor'),
+    exams: firestore.collection('exams'),
     formatDoc: doc =>
     {
         return {
