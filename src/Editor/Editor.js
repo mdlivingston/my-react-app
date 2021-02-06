@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { db, storage } from '../firebase'
+import { db } from '../firebase'
 import { Button } from '@material-ui/core';
+import { useAuth } from '../Vault/context/AuthContext';
 
 ClassicEditor.config = {
     mediaEmbed: {
@@ -34,27 +35,36 @@ const editorConfiguration = {
 
 export default function EditorComp()
 {
+    const { currentUser } = useAuth()
     useEffect(() =>
     {
-
+        if (!currentUser) return
         // get the whole collection
         db.editor
-            .get()
+            .where("userId", "==", currentUser.uid)
+            .get('data')
             .then(querySnapshot =>
             {
                 const data = querySnapshot.docs.map(doc => doc.data());
-                if (data.length == 0)
+                if (data.length === 0)
                     return
                 setEditorState(data[0].html);
                 console.log(data); // array of cities objects
             });
-    }, [])
+    })
 
 
     function printCode()
     {
+        if (!currentUser)
+        {
+            console.error("Error: Not Signed In!");
+            return
+        }
+
         db.editor.doc("data").set({
-            html: editorState
+            html: editorState,
+            userId: currentUser.uid
         })
             .then(function ()
             {

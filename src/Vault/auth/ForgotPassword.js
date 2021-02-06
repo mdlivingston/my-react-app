@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { Card, Form, Button, Alert } from 'react-bootstrap'
 import { useAuth } from '../context/AuthContext'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import CenteredContainer from './CenteredContainer'
 
 export default function ForgotPasword()
@@ -11,7 +11,6 @@ export default function ForgotPasword()
     const [error, setError] = useState('')
     const [message, setMessage] = useState('')
     const [loading, setLoading] = useState(false)
-    const history = useHistory()
 
     async function handleSubmit(e)
     {

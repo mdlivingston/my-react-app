@@ -13,7 +13,6 @@ import Signup from "./Vault/auth/Signup";
 import Profile from "./Vault/auth/Profile"
 import Login from './Vault/auth/Login'
 import { AuthProvider } from "./Vault/context/AuthContext";
-import { Container } from 'react-bootstrap'
 import EditorComp from './Editor/Editor';
 import Dashboard from './Vault/google-drive/Dashboard';
 
