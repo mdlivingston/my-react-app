@@ -14,6 +14,7 @@ import Dashboard from "./Vault/Dashboard"
 import Login from './Vault/Login'
 import { AuthProvider } from "./Vault/context/AuthContext";
 import { Container } from 'react-bootstrap'
+import EditorComp from './Editor/Editor';
 
 function App()
 {
@@ -31,6 +32,9 @@ function App()
         </Button>
         <Button style={{ height: 30, marginRight: 8 }} variant="contained" component={Link} to="/random">
           Random
+        </Button>
+        <Button style={{ height: 30, marginRight: 8, backgroundColor: 'lightblue' }} variant="contained" component={Link} to="/editor">
+          Editor
         </Button>
         <span style={{ flex: 1 }}></span>
         <Button style={{ height: 30, marginRight: 8 }} variant="contained" component={Link} to="/dashboard">
@@ -51,9 +55,15 @@ function App()
             <PathfindingVisualizer />
           </Route>
 
+          <Route path="/editor">
+            <EditorComp />
+          </Route>
+
           <Route path="/random">
             <Random name={'test2'} />
           </Route>
+
+
 
           <Container
             className="d-flex align-items-center justify-content-center">
