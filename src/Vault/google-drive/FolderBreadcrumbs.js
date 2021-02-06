@@ -2,6 +2,8 @@ import React from 'react'
 import { Breadcrumb } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { ROOT_FOLDER } from '../hooks/useFolder'
+import AddFileButton from './AddFileButton'
+import AddFolderButton from './AddFolderButton'
 
 
 export default function FolderBreadcrumbs({ currentFolder })
@@ -39,6 +41,9 @@ export default function FolderBreadcrumbs({ currentFolder })
                     {currentFolder.name}
                 </Breadcrumb.Item>
             )}
+            <span style={{ flex: 1 }}></span>
+            <AddFileButton currentFolder={currentFolder} />
+            <AddFolderButton currentFolder={currentFolder} />
         </Breadcrumb>
     )
 }
