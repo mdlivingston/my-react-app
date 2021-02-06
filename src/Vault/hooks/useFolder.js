@@ -108,7 +108,7 @@ export function useFolder(folderId = null, folder = null)
             db.files
                 .where("folderId", "==", folderId)
                 .where("userId", "==", currentUser.uid)
-                // .orderBy("createdAt")
+                .orderBy("createdAt")
                 .onSnapshot(snapshot =>
                 {
                     dispatch({

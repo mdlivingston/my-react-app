@@ -28,8 +28,12 @@ export default function Exam()
 
     useEffect(() =>
     {
-        if (!currentUser) return
-        // get the whole collection
+        if (!currentUser)
+        {
+            console.error("Error: Not Signed In!");
+            return
+        }
+
         db.editor
             .where("userId", "==", currentUser.uid)
             .get('data')
@@ -39,13 +43,10 @@ export default function Exam()
                 if (data.length === 0)
                     return
                 setEditorState(data[0].html);
-                console.log(data); // array of cities objects
             });
     }, [currentUser])
 
-
-
-    function printCode()
+    function saveEditorData()
     {
         if (!currentUser)
         {
@@ -66,9 +67,10 @@ export default function Exam()
                 console.error("Error writing document: ", error);
             });
     }
+
     return (
         <div>
-            <Button variant="contained" style={{ backgroundColor: 'lightblue', marginBottom: '20px' }} onClick={printCode}>Save Data</Button>
+            <Button variant="contained" style={{ backgroundColor: 'lightblue', marginBottom: '20px' }} onClick={saveEditorData}>Save Data</Button>
 
             <div style={{ width: '1000px' }}>
                 <CKEditor

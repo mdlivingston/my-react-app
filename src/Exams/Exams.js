@@ -12,10 +12,15 @@ export default function Exams()
 
     useEffect(() =>
     {
-        if (!currentUser) return
+        if (!currentUser)
+        {
+            console.error("Error: Not Signed In!");
+            return
+        }
+
         return db.exams
             .where("userId", "==", currentUser.uid)
-            //.orderBy("createdAt")
+            .orderBy("createdAt")
             .onSnapshot(snapshot =>
             {
                 setExams(snapshot.docs.map(db.formatDoc))

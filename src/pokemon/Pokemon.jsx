@@ -1,7 +1,7 @@
 import { Box, Button, Card, CardContent, TextField, Typography } from '@material-ui/core';
 import * as React from 'react';
 import { useRef, useState } from 'react';
-import { fetchPokemon } from '../Api/Api';
+import { fetchPokemon } from './Api/Api';
 
 function Pokemon()
 {

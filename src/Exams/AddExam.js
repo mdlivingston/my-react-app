@@ -32,13 +32,6 @@ export default function AddExam()
             return
         }
 
-
-        // const path = [...currentFolder.path]
-        // if (currentFolder !== ROOT_FOLDER)
-        // {
-        //     path.push({ name: currentFolder.name, id: currentFolder.id })
-        //}
-
         db.exams.add({
             name: name,
             userId: currentUser.uid,

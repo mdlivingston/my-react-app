@@ -1,6 +1,6 @@
 import { Box, Button } from '@material-ui/core';
 import React, { Component } from 'react';
-import { dijkstra, getNodesInShortestPathOrder } from '../Algorithms/dijkstra';
+import { dijkstra, getNodesInShortestPathOrder } from './Algorithms/dijkstra';
 import Node from './Node/Node';
 import './PathfindingVisualizer.css';
 
