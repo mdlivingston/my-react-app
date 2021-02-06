@@ -11,6 +11,20 @@ var app = firebase.initializeApp({
 });
 
 export const auth = app.auth();
-export const db = app.firestore();
-export const storage = app.storage().ref();
+const firestore = app.firestore()
+
+export const db = {
+    folders: firestore.collection('folders'),
+    files: firestore.collection("files"),
+    editor: firestore.collection('editor'),
+    formatDoc: doc =>
+    {
+        return {
+            id: doc.id,
+            ...doc.data(),
+        }
+    },
+    getCurrentTimeStamp: firebase.firestore.FieldValue.serverTimestamp
+}
+export const storage = app.storage();
 export default app;

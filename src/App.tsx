@@ -6,15 +6,16 @@ import logo from './logo.svg';
 import PathfindingVisualizer from './PathfindingVisualizer/PathfindingVisualizer';
 import Pokemon from './Pokemon/Pokemon';
 import Random from './Random/random';
-import PrivateRoute from './Vault/PrivateRoute'
-import ForgotPassword from './Vault/ForgotPassword'
-import UpdateProfile from './Vault/UpdateProfile'
-import Signup from "./Vault/Signup";
-import Dashboard from "./Vault/Dashboard"
-import Login from './Vault/Login'
+import PrivateRoute from './Vault/auth/PrivateRoute'
+import ForgotPassword from './Vault/auth/ForgotPassword'
+import UpdateProfile from './Vault/auth/UpdateProfile'
+import Signup from "./Vault/auth/Signup";
+import Profile from "./Vault/auth/Profile"
+import Login from './Vault/auth/Login'
 import { AuthProvider } from "./Vault/context/AuthContext";
 import { Container } from 'react-bootstrap'
 import EditorComp from './Editor/Editor';
+import Dashboard from './Vault/google-drive/Dashboard';
 
 function App()
 {
@@ -63,20 +64,15 @@ function App()
             <Random name={'test2'} />
           </Route>
 
+          <PrivateRoute exact path="/dashboard" component={Dashboard}></PrivateRoute>
+          <PrivateRoute exact path="/folder/:folderId" component={Dashboard}></PrivateRoute>
+          <PrivateRoute path="/user" component={Profile}></PrivateRoute>
+          <PrivateRoute path="/update-profile" component={UpdateProfile}></PrivateRoute>
+          <Route path="/signup" component={Signup} />
+          <Route path="/login" component={Login} />
+          <Route path="/forgot-password" component={ForgotPassword} />
 
-
-          <Container
-            className="d-flex align-items-center justify-content-center">
-            <div className="w-100" style={{ maxWidth: "400px" }}>
-              <PrivateRoute exact path="/dashboard" component={Dashboard}></PrivateRoute>
-              <PrivateRoute path="/update-profile" component={UpdateProfile}></PrivateRoute>
-              <Route path="/signup" component={Signup} />
-              <Route path="/login" component={Login} />
-              <Route path="/forgot-password" component={ForgotPassword} />
-            </div>
-          </Container>
-
-          <Route path="/">
+          <Route exact path="/">
             <Pokemon />
           </Route>
 

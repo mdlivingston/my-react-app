@@ -38,11 +38,13 @@ export default function EditorComp()
     {
 
         // get the whole collection
-        db.collection("test")
+        db.editor
             .get()
             .then(querySnapshot =>
             {
                 const data = querySnapshot.docs.map(doc => doc.data());
+                if (data.length == 0)
+                    return
                 setEditorState(data[0].html);
                 console.log(data); // array of cities objects
             });
@@ -51,7 +53,7 @@ export default function EditorComp()
 
     function printCode()
     {
-        db.collection("test").doc("data").set({
+        db.editor.doc("data").set({
             html: editorState
         })
             .then(function ()
